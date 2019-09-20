@@ -1,8 +1,4 @@
 -- Insertions
-
-INSERT INTO `users` VALUES
-	(0, "Oliver", "Benz", "oliver.benz@outlook.com", "1234", "xyz");
-
 INSERT INTO alignments VALUES
 	(0, "Lawful Good"),
 	(0, "Neutral Good"),
@@ -31,9 +27,6 @@ INSERT INTO `backgrounds` VALUES
 	(0, "Sailor"),
 	(0, "Soldier"),
 	(0, "Urchin");
-	
-INSERT INTO `characters` VALUES
-	("Hk6Sh1m9^aWd9NMOdKh", (SELECT id FROM `users` WHERE email="oliver.benz@outlook.com"),"Kairon", "Creed", 3, 0, (SELECT id from alignments WHERE name="Chaotic Neutral"), "Charlatan", 36, 188, 85, 24, 0, 12, 0, 98, 0, 202, 0);
 
 INSERT INTO charSpells VALUES
 	((SELECT id FROM `characters` WHERE firstname="Kairon"), (SELECT id FROM spells WHERE name="Eldritch Blast")),

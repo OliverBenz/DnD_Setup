@@ -13,21 +13,6 @@ CREATE TABLE `users`(
 	PRIMARY KEY(id)
 );
 
--- CREATE TABLE spells(
--- 	`id` INT UNIQUE NOT NULL AUTO_INCREMENT,
--- 	`name` varchar(20) UNIQUE NOT NULL,
--- 	`level` INT,
--- 	`range` INT,
--- 	`castTime` VARCHAR(3),
--- 	`duration` VARCHAR(30),
--- 	`components` VARCHAR(60),
--- 	`save` VARCHAR(3),
--- 	`desc` VARCHAR(100),
--- 	`descLong` TEXT,
-	
--- 	PRIMARY KEY(id)
--- );
-
 CREATE TABLE schools(
 	id INT UNIQUE NOT NULL AUTO_INCREMENT,
 	name VARCHAR(50),
@@ -138,6 +123,20 @@ CREATE TABLE `notes`(
 	charId INT NOT NULL,
 	date DATETIME NOT NULL,
 	note TEXT,
+	
+	PRIMARY KEY(id),
+	FOREIGN KEY(charId) REFERENCES characters(id)
+);
+
+-- Tracker
+CREATE TABLE charTrackers(
+	id INT UNIQUE NOT NULL AUTO_INCREMENT,
+	charId INT NOT NULL,
+	title VARCHAR(25) NOT NULL,
+	
+	`value` INT NOT NULL,
+	`maxValue` INT,
+	`minValue` INT,
 	
 	PRIMARY KEY(id),
 	FOREIGN KEY(charId) REFERENCES characters(id)
