@@ -21,6 +21,36 @@ CREATE TABLE schools(
 	PRIMARY KEY(id)
 );
 
+CREATE TABLE `races`(
+	id INT UNIQUE NOT NLL AUTO_INCREMENT,
+	name VARCHAR(25),
+	speed INT,
+	alignment TEXT,
+	size VARCHAR(15),
+	sizeDesc TEXT,
+
+	languageDesc TEXT
+);
+
+CREATE TABLE `languages`(
+	id INT UNIQUE NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(25),
+	`type` VARCHAR(25),
+	`script` VARCHAR(25),
+
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE 'languageSpeakers'(
+	languageId INT NOT NULL,
+	`name` VARCHAR(20) NOT NULL,
+
+	PRIMARY KEY(languageId, `name`),
+	UNIQUE(languageId, `name`),
+
+	FOREIGN KEY(languageId) REFERENCES languages(id)
+);
+
 CREATE TABLE `spells`(
 	`id` INT UNIQUE NOT NULL AUTO_INCREMENT,
 	`name` varchar(30) UNIQUE NOT NULL,
