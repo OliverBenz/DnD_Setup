@@ -28,11 +28,7 @@ INSERT INTO `backgrounds` VALUES
 	(0, "Soldier"),
 	(0, "Urchin");
 
-INSERT INTO charSpells VALUES
-	((SELECT id FROM `characters` WHERE firstname="Kairon"), (SELECT id FROM spells WHERE name="Eldritch Blast")),
-	((SELECT id FROM `characters` WHERE firstname="Kairon"), (SELECT id FROM spells WHERE name="Mage Hand")),
-	((SELECT id FROM `characters` WHERE firstname="Kairon"), (SELECT id FROM spells WHERE name="Thaumaturgy")),
-	((SELECT id FROM `characters` WHERE firstname="Kairon"), (SELECT id FROM spells WHERE name="Hexblade's Curse")),
-	((SELECT id FROM `characters` WHERE firstname="Kairon"), (SELECT id FROM spells WHERE name="Armor of Agathys")),
-	((SELECT id FROM `characters` WHERE firstname="Kairon"), (SELECT id FROM spells WHERE name="Charm Person")),
-	((SELECT id FROM `characters` WHERE firstname="Kairon"), (SELECT id FROM spells WHERE name="Hex"));
+INSERT INTO `sizes` VALUES
+	(0, "Small"),
+	(0, "Medium"),
+	(0, "Large");

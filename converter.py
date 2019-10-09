@@ -28,7 +28,7 @@ with open('data/5e-SRD-Races.json') as json_file:
 
   f = open("db_csv/races.csv", "w+")
   for p in data:
-    f.write((str(p["index"]) + "&&" + p["name"] + str(p["speed"]) + "&&" + p["alignment"] + "&&" + p["size"] + "&&" + p["size_description"] + "\n").encode('utf-8'))
+    f.write((str(p["index"]) + "&&" + p["name"] + "&&" + str(p["speed"]) + "&&" + p["alignment"] + "&&" + p["size"] + "&&" + p["size_description"] + "\n").encode('utf-8'))
   
   f.close()
 
@@ -125,11 +125,3 @@ with open('data/5e-SRD-Spells.json') as json_file:
     f.write(string.encode('utf-8') + "\n")
 
   f.close()
-    
-
-# TODO: Make new spell db design
-
-# Spell -> id, name, desc, higher_level, page, range, material, ritual, duration, concentration, casting_time, level, school(FK)
-
-# DB ADD components
-# spells, school, spellComponents

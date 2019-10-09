@@ -21,15 +21,23 @@ CREATE TABLE schools(
 	PRIMARY KEY(id)
 );
 
+CREATE TABLE sizes(
+	id INT UNIQUE NOT NULL AUTO_INCREMENT,
+	name VARCHAR(15),
+
+	PRIMARY KEY(id)
+);
+
 CREATE TABLE `races`(
-	id INT UNIQUE NOT NLL AUTO_INCREMENT,
+	id INT UNIQUE NOT NULL AUTO_INCREMENT,
 	name VARCHAR(25),
 	speed INT,
 	alignment TEXT,
-	size VARCHAR(15),
+	size INT,
 	sizeDesc TEXT,
 
-	languageDesc TEXT
+	PRIMARY KEY(id),
+	FOREIGN KEY(size) REFERENCES sizes(id)
 );
 
 CREATE TABLE `languages`(
@@ -41,15 +49,15 @@ CREATE TABLE `languages`(
 	PRIMARY KEY(id)
 );
 
-CREATE TABLE 'languageSpeakers'(
-	languageId INT NOT NULL,
-	`name` VARCHAR(20) NOT NULL,
+-- CREATE TABLE 'languageSpeakers'(
+-- 	languageId INT NOT NULL,
+-- 	`name` VARCHAR(20) NOT NULL,
 
-	PRIMARY KEY(languageId, `name`),
-	UNIQUE(languageId, `name`),
+-- 	PRIMARY KEY(languageId, `name`),
+-- 	UNIQUE(languageId, `name`),
 
-	FOREIGN KEY(languageId) REFERENCES languages(id)
-);
+-- 	FOREIGN KEY(languageId) REFERENCES languages(id)
+-- );
 
 CREATE TABLE `spells`(
 	`id` INT UNIQUE NOT NULL AUTO_INCREMENT,
@@ -57,7 +65,7 @@ CREATE TABLE `spells`(
 	`desc` TEXT,
 	`higher_level` TEXT,
 	`page` VARCHAR(10),
-	`material` VARCHAR(40),
+	`material` TEXT,
 	`ritual` BOOLEAN,
 	`duration` VARCHAR(15),
 	`concentration` BOOLEAN,
@@ -69,7 +77,6 @@ CREATE TABLE `spells`(
 	PRIMARY KEY(id),
 	FOREIGN KEY(school) REFERENCES school(id)
 );
-
 
 CREATE TABLE `alignments`(
 	id INT UNIQUE NOT NULL AUTO_INCREMENT,
@@ -109,12 +116,13 @@ CREATE TABLE `characters`(
 	electrum INT,
 	gold INT,
 	platinum INT,
+
+	deleted BOOLEAN,
 	
 	PRIMARY KEY(id),
 	FOREIGN KEY(userId) REFERENCES `users`(id),
 	FOREIGN KEY(alignment) REFERENCES alignments(id),
 	FOREIGN KEY(background) REFERENCES `backgrounds`(id)
-
 );
 
 CREATE TABLE charSpells(
@@ -126,6 +134,17 @@ CREATE TABLE charSpells(
 	
 	FOREIGN KEY(characterId) REFERENCES `characters`(id),
 	FOREIGN KEY(spellId) REFERENCES spells(id)
+);
+
+CREATE TABLE charLanguages(
+	characterId INT NOT NULL,
+	languageId INT NOT NULL,
+
+	UNIQUE(characterId, languageId),
+	PRIMARY KEY(characterId, languageId),
+
+	FOREIGN KEY(characterId) REFERENCES `characters`(id),
+	FOREIGN KEY(languageId) REFERENCES `languages`(id)
 );
 
 -- Campaign
