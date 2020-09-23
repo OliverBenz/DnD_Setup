@@ -1,8 +1,11 @@
 import json
 
 # --- Magic Schools ---
-with open('data/5e-SRD-Magic-Schools.json') as json_file:
+def write_schools():
+  json_file = open('data/5e-SRD-Magic-Schools.json')
   data = json.load(json_file)
+  json_file.close()
+
   # w -> write  + -> Create file if not exists
   f = open("db_csv/schools.csv", "w+")
   for p in data:
@@ -12,8 +15,10 @@ with open('data/5e-SRD-Magic-Schools.json') as json_file:
 
 
 # --- Languages ---
-with open('data/5e-SRD-Languages.json') as json_file:
+def write_languages():
+  json_file = open('data/5e-SRD-Languages.json')
   data = json.load(json_file)
+  json_file.close()
 
   f = open("db_csv/languages.csv", "w+")
   for p in data:
@@ -23,8 +28,10 @@ with open('data/5e-SRD-Languages.json') as json_file:
 
 
 # --- Races ---
-with open('data/5e-SRD-Races.json') as json_file:
+def write_races():
+  json_file = open('data/5e-SRD-Races.json')
   data = json.load(json_file)
+  json_file.close()
 
   f = open("db_csv/races.csv", "w+")
   for p in data:
@@ -34,8 +41,10 @@ with open('data/5e-SRD-Races.json') as json_file:
 
 
 # --- Race Languages ---
-with open('data/5e-SRD-Languages.json') as language_file:
-  languages = json.load(language_file)
+def write_race_languages():
+  json_file = open('data/5e-SRD-Languages.json')
+  languages = json.load(json_file)
+  json_file.close()
 
   f = open('db_csv/raceLanguages.csv', 'w+')
 
@@ -49,8 +58,13 @@ with open('data/5e-SRD-Languages.json') as language_file:
 
 
 # --- Spells ---
-with open('data/5e-SRD-Spells.json') as json_file:
+def write_spells():
+  def delim(val):
+    val += '&&'
+
+  json_file = open('data/5e-SRD-Spells.json')
   data = json.load(json_file)
+  json_file.close()
 
   f = open("db_csv/spells.csv", "w+")
   for p in data:
@@ -60,13 +74,13 @@ with open('data/5e-SRD-Spells.json') as json_file:
       for desc in p["desc"]:
         string += desc
 
-    string += '&&'
+    delim(string)
 
     if "higher_level" in p:
       for high in p["higher_level"]:
         string += high
 
-    string += '&&'
+    delim(string)
 
     if "page" in p:
       string += p["page"]
@@ -76,7 +90,7 @@ with open('data/5e-SRD-Spells.json') as json_file:
     if "material" in p:
       string += p["material"]
 
-    string += '&&'
+    delim(string)
 
     if "ritual" in p:
       if p["ritual"]:
@@ -84,12 +98,12 @@ with open('data/5e-SRD-Spells.json') as json_file:
       else:
         string += str(0)
     
-    string += '&&'
+    delim(string)
 
     if "duration" in p:
       string += str(p["duration"])
 
-    string += '&&'
+    delim(string)
 
     if "concentration" in p:
       if p["concentration"]:
@@ -97,27 +111,26 @@ with open('data/5e-SRD-Spells.json') as json_file:
       else:
         string += str(0)
 
-    string += '&&'
+    delim(string)
 
     if "school" in p:
       with open('data/5e-SRD-Magic-Schools.json') as file:
         schools = json.load(file)
 
-        for s in schools:
-          if s["name"] == p["school"]["name"]:
-            string += str(s["index"])
+        for s in [sc for sc in schools if s["name"] == p["school"]["name"]]:
+          string += str(s["index"])
 
-    string += '&&'
+    delim(string)
 
     if "level" in p:
       string += str(p["level"])
 
-    string += '&&'
+    delim(string)
 
     if "range" in p:
       string += p["range"]
     
-    string += '&&'
+    delim(string)
 
     if "casting_time" in p:
       string += str(p["casting_time"])
@@ -125,3 +138,11 @@ with open('data/5e-SRD-Spells.json') as json_file:
     f.write(string.encode('utf-8') + "\n")
 
   f.close()
+
+
+if __name__ == "__main__":
+  write_schools()
+  write_languages()
+  write_races()
+  write_race_languages()
+  write_spells()
